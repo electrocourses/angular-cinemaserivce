@@ -1,0 +1,33 @@
+<h1>Cinema halls</h1>
+
+<a class="btn btn-warning mb-3" (click)="addCinemaHall()" *ngIf="isAdminUser">add</a>
+<div class="row">
+  <div class="col-6">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let cinemaHall of cinemaHalls">
+        <td>{{cinemaHall.id}}</td>
+        <td>{{cinemaHall.name}}</td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="setCinemaHall(cinemaHall.id)">view</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div *ngIf="loadingData">{{message}}</div>
+  </div>
+  <div class="col-6">
+    <app-cinema-hall-detail *ngIf="action === 'view'" [cinemaHall]="selectedCinemaHall" (dataChangedEvent)="loadData()"></app-cinema-hall-detail>
+    <app-cinema-halls-edit *ngIf="action === 'edit' " [cinemaHall]="selectedCinemaHall" (dataChangedEvent)="loadData()"></app-cinema-halls-edit>
+  </div>
+</div>
+
+
+

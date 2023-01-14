@@ -1,0 +1,44 @@
+<h1> {{user?.id == null ? 'Add' : 'Edit'}} User</h1>
+
+
+
+<div class="bg-warning p-5" *ngIf="message">{{message}}</div>
+
+<form #userForm="ngForm">
+
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" placeholder="user name" [(ngModel)]="formUser.name"
+           (change)="checkIfNameIsValid()" name="name" required #nameField="ngModel">
+    <div *ngIf="nameField.invalid && nameField.touched" class="alert alert-danger">Name field is required</div>
+    <div *ngIf="!nameIsValid && nameField.touched" class="alert alert-danger">Name cannot be blank</div>
+
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="text" class="form-control" id="email" placeholder="user email" [(ngModel)]="formUser.email"
+    (change)="checkIfEmailIsValid()"  name="email" required #emailField="ngModel">
+    <div *ngIf="emailField.invalid && emailField.touched" class="alert alert-danger">Email field is required</div>
+    <div *ngIf="!nameIsValid && emailField.touched" class="alert alert-danger">Email cannot be blank</div>
+
+  </div>
+
+  <div class="form-group" *ngIf="user?.id == null">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" placeholder="password"
+           (change)="checkIfPasswordsAreValid()" name="password" [(ngModel)]="password" required #pass1="ngModel">
+    <div class="alert alert-danger" [hidden]="pass1.valid || pass1.untouched" >Password is required</div>
+    <div class="alert alert-danger" [hidden]="passwordsAreValid || pass1.untouched">Password cannot be black</div>
+
+    <label for="password2">Repeat Password</label>
+    <input type="password" class="form-control" id="password2" placeholder="password"
+           (change)="checkIfPasswordsAreValid()" name="password2" [(ngModel)]="password2" required #pass2="ngModel">
+    <div class="alert alert-danger" [hidden]="passwordsAreMatch">Passwords must match</div>
+
+  </div>
+
+  <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="userForm.invalid || !nameIsValid || !passwordsAreValid || !passwordsAreMatch">Save</button>
+</form>
+
+

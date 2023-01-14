@@ -1,0 +1,67 @@
+<h1>{{film?.id == null ? 'Add' : 'Edit'}} Booking</h1>
+<div class="bg-warning p-5" *ngIf="message">{{message}}</div>
+
+<form  #filmForm="ngForm" *ngIf="dataLoaded">
+  <div class="row">
+    <div class="form-group col-4">
+      <label for="date">Date</label>
+      <input type="date" class="form-control" id="date" (change)="checkIfDateIsValid()"
+             [(ngModel)]="film.date" name="date" required #dateField="ngModel">
+      <div  class="alert alert-danger" *ngIf="dateField.untouched">Date should be selected</div>
+    </div>
+
+    <div class="form-group col-4">
+      <label for="startTime">Start time</label>
+      <input type="time" class="form-control" id="startTime" [(ngModel)]="film.startTime" name="startTime" >
+    </div>
+
+    <div class="form-group col-4">
+      <label for="endTime">End time</label>
+      <input type="time" class="form-control" id="endTime" [(ngModel)]="film.endTime" name="endTime" >
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="form-group col-5">
+      <label for="room">Cinema Hall</label>
+      <select class="form-control" id="room" [(ngModel)]="film.cinemaHall" name="room" >
+        <option *ngFor="let cinemaHall of cinemaHalls" [ngValue]="cinemaHall" >{{cinemaHall.name}}</option>
+      </select>
+    </div>
+
+    <div class="form-group col-5">
+      <label for="layout">Layout</label>
+      <select class="form-control" id="layout" [(ngModel)]="film.layout" name="layout" >
+        <option *ngFor="let layout of layouts"  [ngValue]="layoutEnum[layout]" >{{layoutEnum[layout]}}</option>
+      </select>
+    </div>
+
+    <div class="form-group col-2">
+      <label for="participants">Participants</label>
+      <input type="number" class="form-control" id="participants" [(ngModel)]="film.participants" name="participants"  >
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="form-group col-6">
+      <label for="layout">User</label>
+      <select class="form-control" id="user" [(ngModel)]="film.user" name="user">
+        <option *ngFor="let user of users" [ngValue]="user" >{{user.name}}</option>
+      </select>
+    </div>
+
+    <div class="form-group col-6">
+      <label for="title">Film title</label>
+      <input type="text" class="form-control" id="title" [(ngModel)]="film.title" name="title" >
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="filmForm.invalid" >Save</button>
+    </div>
+  </div>
+</form>

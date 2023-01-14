@@ -1,0 +1,45 @@
+<h1>Cinema Booking System</h1>
+
+<h2>The following films are taking place on: <input type="date" [(ngModel)]="selectedDate" name="selectedDate"
+                                                       (change)="dateChanged()"/></h2>
+
+<a class="btn btn-primary mt-3 mb-5" (click)="addFilm()" *ngIf="isAdminUser">New Film</a>
+
+<div *ngIf="message">{{message}}</div>
+<div *ngIf="dataLoaded">
+
+  <h3 class="mt-5" *ngIf="films.length === 0">There are no films currently scheduled for this date.</h3>
+
+  <div class="row row-striped" *ngFor="let film of films">
+    <div class="col-2 text-right">
+      <h1 class="display-4"><span class="badge badge-secondary">{{film.getDateAsDate() | date:'dd'}}</span></h1>
+      <h2>{{film.getDateAsDate() | date:'MMM'}}</h2>
+    </div>
+    <div class="col-10">
+      <h3 class="text-uppercase"><strong>{{film.title}}</strong></h3>
+      <ul class="list-inline">
+        <li class="list-inline-item"><i class="fa fa-calendar-o"
+                                        aria-hidden="true"></i>{{film.getDateAsDate() | date:'EEE'}}</li>
+        <li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i>{{film.startTime}}
+          - {{film.endTime}}
+        </li>
+        <li class="list-inline-item"><i class="fa fa-location-arrow" aria-hidden="true"></i>{{film.cinemaHall.name}}
+        </li>
+      </ul>
+      <div class="row">
+        <div class="col-6">
+          <p class="mb-0">Booked by : {{film.user.name}}</p>
+          <p class="mb-0">Cinema hall : {{film.layout}}</p>
+          <p>Participants: {{film.participants}}</p>
+        </div>
+        <div class="col-6">
+          <a class="btn btn-warning" (click)="editFilm(film.id)" *ngIf="isAdminUser">Amend</a>
+          <a class="btn btn-danger" (click)="deleteFilm(film.id)" *ngIf="isAdminUser">Cancel</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+  <p class="mt-5">The design of this page is taken from <a href="https://bootsnipp.com/snippets/VgzeR">https://bootsnipp.com/snippets/VgzeR</a>
+  </p>

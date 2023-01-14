@@ -1,0 +1,29 @@
+<h1> {{cinemaHall.id == null ? 'Add' : 'Edit'}} Room</h1>
+
+<div class="bg-warning p-5" *ngIf="message"  >{{message}}</div>
+
+<form [formGroup]="cinemaHallForm" >
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" placeholder="hall name" formControlName="name" required>
+    <div class="alert alert-danger" *ngIf="cinemaHallForm.controls['name'].invalid
+    && cinemaHallForm.controls['name'].dirty">Name cannot be blank</div>
+
+  </div>
+  <div class="form-group">
+    <label for="location">Location</label>
+    <input type="text" class="form-control" id="location" formControlName="location" >
+    <div class="alert alert-danger" *ngIf="cinemaHallForm.controls['location'].invalid
+    && cinemaHallForm.controls['location'].dirty">Location cannot be blank</div>
+  </div>
+
+  <h2>This room can accomodate:</h2>
+
+  <div class="form-group" *ngFor="let layout of layouts">
+    <label for="layout{{layout}}" >{{layoutEnum[layout]}}</label>
+    <input type="number" class="form-control" id="layout{{layout}}" formControlName="layout{{layout}}">
+  </div>
+
+
+  <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="cinemaHallForm.invalid">Save</button>
+</form>

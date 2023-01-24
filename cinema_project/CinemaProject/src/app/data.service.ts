@@ -15,7 +15,7 @@ export class DataService {
 
   //replace wtih restApiGW
   getCinemaHalls(): Observable<Array<CinemaHall>> {
-    return this.http.get<Array<CinemaHall>>(environment.restApiGW + '/api/v1/cinemaHalls', {withCredentials: true}).pipe(
+    return this.http.get<Array<CinemaHall>>(environment.restUrl + '/api/v1/cinemaHalls', {withCredentials: true}).pipe(
       map(data => {
           const cinemaHalls = new Array<CinemaHall>();
           for (const cinemaHall of data) {
@@ -48,7 +48,7 @@ export class DataService {
   addUser(newUser: User, password: string): Observable<User> {
     const fullUser = {id: newUser.id, name: newUser.name, email: newUser.email, password: password};
     console.log('addUser From data.service');
-    return this.http.post<User>(environment.restApiGW + '/api/v1/users', fullUser, {withCredentials: true});
+    return this.http.post<User>(environment.restUrl + '/api/v1/users', fullUser, {withCredentials: true});
   }
 
   private getCorrectedCinemaHall(cinemaHall: CinemaHall) {
@@ -122,23 +122,6 @@ export class DataService {
       );
   }
 
-  //TODO: replace with load balancer restApiGW
-  getAllCities(): Observable<Array<City>> {
-    return this.http.get<Array<City>>(environment.restApiGW + '/api/v1/cities', {withCredentials: true})
-    .pipe(
-      map(
-        data => {
-          console.log('From service: ', data);
-          const cities = new Array<City>();
-          for (const city of data) {
-            cities.push(City.fromHttp(city));
-          }
-          return cities;
-        }
-      )
-    );
-  }
-
 
   getCorrectFilm(film: Film) {
     let correctLayout;
@@ -198,16 +181,16 @@ export class DataService {
     const headerse = new HttpHeaders().append(
       'Authorization', 'Basic ' + authData
     );
-    return this.http.get<{ result: string }>(environment.restApiGW + '/api/basicAuth/validate', {headers: headerse, withCredentials: true});
+    return this.http.get<{ result: string }>(environment.restUrl + '/api/basicAuth/validate', {headers: headerse, withCredentials: true});
   }
 
   getRole(): Observable<{ role: string }> {
     const headers = new HttpHeaders().append('X-Requested-With', 'XMLHttpRequest');
-    return this.http.get<{ role: string }>(environment.restApiGW + '/api/v1/users/currentUserRole', {headers, withCredentials: true});
+    return this.http.get<{ role: string }>(environment.restUrl + '/api/v1/users/currentUserRole', {headers, withCredentials: true});
   }
 
   logOut(): Observable<string> {
-    return this.http.get<string>(environment.restApiGW + '/api/v1/logout', {withCredentials: true});
+    return this.http.get<string>(environment.restUrl + '/api/v1/logout', {withCredentials: true});
 
   }
 

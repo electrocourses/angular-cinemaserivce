@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  restUrl: 'https://someServer.com'
+  restUrl: 'https://localhost',
+  restApiGW: 'http://localhost:8083'
 };

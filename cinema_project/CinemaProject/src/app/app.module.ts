@@ -19,11 +19,9 @@ import {PreFetchCinemaHallsService} from './pre-fetch-cinema-halls.service';
 import {PreFetchUsersService} from './pre-fetch-users.service';
 import {LoginComponent} from './login/login.component';
 import {AuthRouteGuardService} from './auth-route-guard.service';
-import { CitiesComponent } from './admin/cities/cities.component';
 
 
 const routes: Routes = [
-  {path: 'admin/cities', component: CitiesComponent,  canActivate: [AuthRouteGuardService]},
   {path: 'admin/users', component: UsersComponent, canActivate: [AuthRouteGuardService]},
   {path: 'admin/cinemaHalls', component: CinemaHallsComponent, canActivate: [AuthRouteGuardService]},
   {
@@ -57,8 +55,7 @@ const routes: Routes = [
     EditUserComponent,
     CinemaHallsEditComponent,
     EditFilmComponent,
-    LoginComponent,
-    CitiesComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

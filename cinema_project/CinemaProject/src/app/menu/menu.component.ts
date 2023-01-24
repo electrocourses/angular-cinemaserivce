@@ -36,10 +36,6 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['admin', 'users']);
   }
 
-  navigateToCities() {
-    this.router.navigate(['admin', 'cities']);
-  }
-
   navigateToHome() {
     this.router.navigate(['']);
   }
